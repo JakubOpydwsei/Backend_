@@ -56,29 +56,6 @@ public static class SeedData
                     )
                     );
 
-                quizItems.Add(quizItemRepo.Add(
-                    new QuizItem(
-                        id: 4,
-                        correctAnswer: "Right",
-                        question: "Question",
-
-                    incorrectAnswers:
-                    new List<string>() { "Wrong", "Wrong" }
-                    )
-                    )
-                    );
-
-                quizItems.Add(quizItemRepo.Add(
-                    new QuizItem(
-                        id: 5,
-                        correctAnswer: "Right",
-                        question: "Question",
-
-                    incorrectAnswers:
-                    new List<string>() { "Wrong", "Wrong" }
-                    )
-                    )
-                    );
 
                 quizRepo.Add(new Quiz(id: 1, items: quizItems, title: "Question1"));
             }
@@ -117,30 +94,6 @@ public static class SeedData
                 quizItems2.Add(quizItemRepo.Add(
                     new QuizItem(
                         id: 3,
-                        correctAnswer: "Right",
-                        question: "Question",
-
-                    incorrectAnswers:
-                    new List<string>() { "Wrong", "Wrong" }
-                    )
-                    )
-                    );
-
-                quizItems2.Add(quizItemRepo.Add(
-                    new QuizItem(
-                        id: 4,
-                        correctAnswer: "Right",
-                        question: "Question",
-
-                    incorrectAnswers:
-                    new List<string>() { "Wrong", "Wrong" }
-                    )
-                    )
-                    );
-
-                quizItems2.Add(quizItemRepo.Add(
-                    new QuizItem(
-                        id: 5,
                         correctAnswer: "Right",
                         question: "Question",
 
@@ -196,32 +149,10 @@ public static class SeedData
                     )
                     );
 
-                quizItems3.Add(quizItemRepo.Add(
-                    new QuizItem(
-                        id: 4,
-                        correctAnswer: "Right",
-                        question: "Question",
-
-                    incorrectAnswers:
-                    new List<string>() { "Wrong", "Wrong" }
-                    )
-                    )
-                    );
-
-                quizItems3.Add(quizItemRepo.Add(
-                    new QuizItem(
-                        id: 5,
-                        correctAnswer: "Right",
-                        question: "Question",
-
-                    incorrectAnswers:
-                    new List<string>() { "Wrong", "Wrong" }
-                    )
-                    )
-                    );
-
                 quizRepo.Add(new Quiz(id: 3, items: quizItems3, title: "Quiz 3"));
             }
+
+
 
         }
     }

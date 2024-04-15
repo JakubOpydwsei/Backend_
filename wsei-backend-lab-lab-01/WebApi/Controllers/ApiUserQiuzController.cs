@@ -1,6 +1,8 @@
 using BackendLab01;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WebApi.DTO;
+
 
 namespace WebApi.Controllers;
 [ApiController]
@@ -8,6 +10,7 @@ namespace WebApi.Controllers;
 public class ApiUserQiuzController : ControllerBase
 {
     private IQuizUserService _userService;
+    private IQuizAdminService _adminservice;
 
     public ApiUserQiuzController(IQuizUserService userService)
     {
@@ -15,26 +18,41 @@ public class ApiUserQiuzController : ControllerBase
     }
 
     [HttpGet]
-    [Route(template: "{id}")]
-    public ActionResult<QuizDTO?> GetQuizById(int id)
+    [Route("{id}")]
+
+    public ActionResult<QuizDTO> FindById(int id)
     {
-        
-        var result=_userService.FindQuizById(id);
-        if (result is null)
+        Quiz quiz = _userService.FindQuizById(id);
+        if (quiz != null)
+        {
+            QuizDTO quizDto = QuizDTO.of(quiz);
+            return Ok(quizDto);
+        }
+        else
         {
             return NotFound();
-        }else
-        {
-            return QuizDTO.Of(result);
         }
+    }
+    [HttpGet]
+    public IEnumerable<QuizDTO> FindAll()
+    {
+        IEnumerable<Quiz> quizzes = (IEnumerable<Quiz>)_adminservice.FindAllQuizItems();
+        List<QuizDTO> list = new List<QuizDTO>();
+        foreach (var quiz in quizzes)
+        {
+            QuizDTO quizDto = QuizDTO.of(quiz);
+            list.Add(quizDto);
+        }
+        return list;
     }
 
     [HttpPost]
     [Route("{quizId}/items/{itemId}/answers")]
-    public ActionResult SaveAnswer(int quizId, int itemId, QuizItemUserAnswerDTO answer)
+    public void SaveAnswer([FromBody] QuizItemUserAnswerDTO dto, int quizId, int quizItemId)
     {
-        _userService.SaveUserAnswerForQuiz(quizId,1, itemId, answer.Answer);
-        return Created();
+        int userId = dto.UserId;
+        string answer = dto.Answer;
+        _userService.SaveUserAnswerForQuiz(quizId, userId, quizItemId, answer);
     }
 
     [HttpGet]
@@ -51,7 +69,3 @@ public class ApiUserQiuzController : ControllerBase
     }
 
 }
-
-// Api admin quiz controler aby sterować quizami
-// kiedy można usuwać quizy 
-// dodawanie i usuwanie zrobić
